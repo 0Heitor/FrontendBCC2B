@@ -29,6 +29,40 @@ export const buscarMensagens = createAsyncThunk('mensagens/buscarmensagens', asy
     }
 });
 
+export const adicionarMensagem = createAsyncThunk('mensagens/adicionar', async (mensagens) => {
+    console.log(mensagens);
+    const resposta = await fetch(urlBase, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(mensagens)
+    }).catch(erro => {
+        console.log(erro.message);
+        return {
+            status: false,
+            mensagem: 'Ocorreu um erro ao adicionar a mensagem:' + erro.message
+        }
+    });
+    if (resposta.ok) {
+        console.log("Ok");
+        const dados = await resposta.json();
+        return {
+            status: dados.status,
+            mensagem: dados.mensagem,
+            mensagens
+        }
+    }
+    else {
+        console.log(mensagens);
+        return {
+            status: false,
+            mensagem: 'Ocorreu um erro ao adicionar a mensagem.',
+            mensagens
+        }
+    }
+});
+
 const initialState = {
     estado: ESTADO.OCIOSO,
     mensagem: "",
@@ -58,6 +92,19 @@ const mensagemSlice = createSlice({
             .addCase(buscarMensagens.rejected, (state, action) => {
                 state.estado = ESTADO.ERRO;
                 state.mensagem = action.error.message;
+            })
+            .addCase(adicionarMensagem.fulfilled, (state, action) => {
+                state.estado = ESTADO.OCIOSO;
+                state.mensagens.push(action.payload.mensagens);
+                state.mensagem = action.payload.mensagem;
+            })
+            .addCase(adicionarMensagem.pending, (state, action) => {
+                state.estado = ESTADO.PENDENTE;
+                state.mensagem = "Adicionando mensagem...";
+            })
+            .addCase(adicionarMensagem.rejected, (state, action) => {
+                state.mensagem = "Erro ao adicionar a mensagem: " + action.error.message;
+                state.estado = ESTADO.ERRO;
             })
     }
 });
