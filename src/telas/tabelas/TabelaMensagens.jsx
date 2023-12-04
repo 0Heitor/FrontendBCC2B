@@ -42,7 +42,7 @@ export default function TabelaMensagem(props) {
                                         <td>{mensagem.dataHora}</td>
                                         <td>{mensagem.usuario.nickname}</td>
                                         <td>{mensagem.mensagem}</td>
-                                        <td>{mensagem.lida}</td>
+                                        <td>{mensagem.lida ? "Lida" : "Não Lida"}</td>
                                     </tr>
                                 )
                             })
