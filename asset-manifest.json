@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/FrontendBCC2B/static/css/main.241951ba.css",
+    "main.js": "/FrontendBCC2B/static/js/main.10f70c12.js",
+    "index.html": "/FrontendBCC2B/index.html",
+    "main.241951ba.css.map": "/FrontendBCC2B/static/css/main.241951ba.css.map",
+    "main.10f70c12.js.map": "/FrontendBCC2B/static/js/main.10f70c12.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.241951ba.css",
+    "static/js/main.10f70c12.js"
+  ]
+}
